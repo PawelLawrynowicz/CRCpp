@@ -1,9 +1,14 @@
 #include <iostream>
 #include <deque>
 #include <string>
-#include <conio.h>
+#include <math.h>
+//#include <conio.h>
 using namespace std;
 
+
+void clear_terminal(){
+    std::cout << "\033[2J\033[1;1H";
+}
 //decimal to binary conversion
 deque<int> decimalToBinary(int decimal)
 {
@@ -196,11 +201,11 @@ deque<int> getWord(int n)
     deque<int> word;
     string input;
     cout << endl
-         << "Prosze podac slowo kodowe o dlugosci " << n << " w postaci binarnej: " << endl;
+         << "Please input codeword of length " << n << " in binary form: " << endl;
     cin >> input;
     while (input.length() != n)
     {
-        cout << "Wpisany zostal ciag niepoprawnej dlugosci. Sprobuj ponownie: " << endl;
+        cout << "The given codeword has wrong length, try again: " << endl;
         input.clear();
         cin >> input;
     }
@@ -211,7 +216,7 @@ deque<int> getWord(int n)
         {
             if (input[i] != '1' && input[i] != '0')
             {
-                cout << "Wpisany powinien byc ciag w postaci binarnej. Sprobuj ponownie: " << endl;
+                cout << "The codeword should be binary (only 1s and 0s): " << endl;
                 input.clear();
                 cin >> input;
             }
@@ -269,7 +274,7 @@ void correct(deque<deque<int>> htMatrix, int n, int k)
     deque<int> syn = syndrom(htMatrix, input, n, k);
 
     cout << endl
-         << "Syndrom przed przesunieciem: ";
+         << "Syndrome before shift: ";
     for (int i = 0; i < syn.size(); i++)
     {
         cout << syn[i];
@@ -277,7 +282,7 @@ void correct(deque<deque<int>> htMatrix, int n, int k)
     cout << endl;
     if (howManyOnes(syndrom(htMatrix, input, n, k)) == 0)
     {
-        cout << "Pobrany ciag jest slowem kodowym!" << endl;
+        cout << "Given string is a codeword!" << endl;
     }
     else
     {
@@ -286,7 +291,7 @@ void correct(deque<deque<int>> htMatrix, int n, int k)
             tilt++;
             input = move_1_to_left(input);
             syn = syndrom(htMatrix, input, n, k);
-            cout << "Syndrom po " << tilt << " przesunieciu: ";
+            cout << "Syndrome after " << tilt << " shift: ";
             for (int i = 0; i < syn.size(); i++)
             {
                 cout << syn[i];
@@ -295,7 +300,7 @@ void correct(deque<deque<int>> htMatrix, int n, int k)
             if (tilt == n - 1)
             {
                 cout << endl
-                     << "Blad niekorygowalny" << endl;
+                     << "Error cannot be corrected" << endl;
                 return;
             }
         }
@@ -310,7 +315,7 @@ void correct(deque<deque<int>> htMatrix, int n, int k)
             ans = move_1_to_right(ans);
         }
         cout << endl
-             << "Po korekcji bledu: ";
+             << "After error correction: ";
         for (int i = 0; i < ans.size(); i++)
         {
             cout << ans[i];
@@ -362,7 +367,7 @@ deque<deque<int>> controlMatrix(int n, int k, int gx, bool draw)
     if (draw)
     {
         cout << endl
-             << "Macierz generujaca systematyczna Gs: " << endl
+             << "Systematic generator matrix Gs: " << endl
              << endl;
         for (int i = 0; i < k; i++)
         {
@@ -374,7 +379,7 @@ deque<deque<int>> controlMatrix(int n, int k, int gx, bool draw)
         }
 
         cout << endl
-             << "Macierz kontrolna H^T: " << endl
+             << "Control matrix H^T: " << endl
              << endl;
         for (int i = 0; i < n; i++)
         {
@@ -388,9 +393,9 @@ deque<deque<int>> controlMatrix(int n, int k, int gx, bool draw)
         int e = (d_min - 1);
         int t = (d_min - 1) / 2;
         cout << endl
-             << "Odleglosc minimalna: " << d_min << endl;
-        cout << "Zdolnosc detekcyjna: " << e << endl;
-        cout << "Zdolnosc korekcyjna: " << t << endl;
+             << "Minimum distance: " << d_min << endl;
+        cout << "Error-detecting capability: " << e << endl;
+        cout << "Error-correcting capability: " << t << endl;
     }
 
     return htMatrix;
@@ -411,14 +416,14 @@ bool check(int n, deque<int> gen)
     deque<int> result;
     result = divisionRemainer(a, gen);
     cout << endl
-         << "Reszta z dzielenia x^" << n << " + x^0 przez wielomian generujacy: ";
+         << "Remainder x^" << n << " + x^0 of division by generator polynomial: ";
     int ones = howManyOnes(gen);
     for (int i = 0; i < result.size(); i++)
         cout << result[i];
     if (binaryToDecimal(result) == 0)
     {
         cout << endl
-             << "Wprowadzone parametry sa poprawne";
+             << "The entered parameters are correct.";
         return true;
     }
     return false;
@@ -443,17 +448,17 @@ void getNewPoly(int &n, int &k, int &value)
     deque<int> temp;
     string str;
 
-    cout << "Podaj nowa wartosc n: ";
+    cout << "Input new n value: ";
     cin >> n;
 
-    cout << "Podaj nowa wartosc k: ";
+    cout << "Input new k value: ";
     cin >> k;
 
-    cout << "Podaj nowy wielomian generujacy (jako liczba binarna): ";
+    cout << "Input new generator polynomial (as binary number): ";
     cin >> str;
     while (!binaryCheck(str))
     {
-        cout << "Wprowadzony ciag powinien byc liczba binarna, sproboj ponownie:";
+        cout << "The polynomial should be a binary number (only 1 and 0), try again:";
         cin >> str;
     }
     for (int i = 0; i < str.length(); i++)
@@ -481,7 +486,7 @@ void printPoly(deque<int> poly)
 //more menu printing
 void printPlainText(int n, int k, deque<int> poly)
 {
-    cout << "Aktualny kod:(" << n << ", " << k << ") ";
+    cout << "Current code:(" << n << ", " << k << ") ";
     int ones = howManyOnes(poly);
     for (int i = 0; i < poly.size(); i++)
     {
@@ -498,24 +503,24 @@ void printPlainText(int n, int k, deque<int> poly)
 //menu function
 void mainMenu(int n = 18, int k = 8, int gx = 1533)
 {
-    system("cls");
-    cout << "KODOWANIE 2 -- PROJEKT -- PAWEL LAWRYNOWICZ (249404)" << endl
+   clear_terminal();
+    cout << "-- Cyclic coder --" << endl
          << endl;
     printPlainText(n, k, decimalToBinary(gx));
     cout << endl
          << endl;
-    cout << "Wielomian generujacy: ";
+    cout << "Generator polynomial: ";
     printPoly(decimalToBinary(gx));
     cout << endl
          << endl;
     cout << "MENU: " << endl;
-    cout << "1. Macierz generujaca" << endl;
-    cout << "2. Macierz generujaca systematyczna, macierz kontrolna, odleglosc minimalna, zdolnosc detekcyjna i korekcyjna" << endl;
-    cout << "3. Tablica slow kodowych" << endl;
-    cout << "4. Wykrywanie i korekcja bledow" << endl;
-    cout << "5. Sprawdzenie poprawnosci metoda dzielenia wielomianow" << endl;
-    cout << "6. Zmien parametry kodu" << endl;
-    cout << "0. Wyjscie z programu" << endl;
+    cout << "1. Generator matrix" << endl;
+    cout << "2. Systematic generator matrix, control matrix, minimum distance, Error-detecting and correction capability" << endl;
+    cout << "3. Codeword table" << endl;
+    cout << "4. Detection and correction of errors" << endl;
+    cout << "5. Checking the correctness with the method of dividing polynomials" << endl;
+    cout << "6. Change code parameters" << endl;
+    cout << "0. Exit program" << endl;
 }
 
 //more menu function
@@ -526,37 +531,37 @@ void optMenu()
     int gx = 1533; //1533
     while (1)
     {
-        switch (_getch())
+        switch (getchar())
         {
         case '1':
-            system("cls");
+           clear_terminal();
             mainMenu(n, k, gx);
             cout << endl;
             generateMatrix(n, k, gx);
             break;
         case '2':
-            system("cls");
+           clear_terminal();
             mainMenu(n, k, gx);
             controlMatrix(n, k, gx, true);
             break;
         case '3':
-            system("cls");
+           clear_terminal();
             mainMenu(n, k, gx);
             printCodeWords(generateMatrix(n, k, gx, false), n, k);
             break;
         case '4':
-            system("cls");
+           clear_terminal();
             mainMenu(n, k, gx);
             correct(controlMatrix(n, k, gx, false), n, k);
             break;
         case '5':
-            system("cls");
+           clear_terminal();
             mainMenu(n, k, gx);
             check(n, decimalToBinary(gx));
             break;
         case '6':
         {
-            system("cls");
+           clear_terminal();
             getNewPoly(n, k, gx);
             bool correct = check(n, decimalToBinary(gx));
             int chances = 10;
@@ -569,11 +574,11 @@ void optMenu()
                 if (chances == 0)
                 {
                     cout << "Bardzo sie starales, lecz z gry wyleciales HeHe" << endl;
-                    _getch();
+                    getchar();
                     exit(0);
                 }
             }
-            _getch();
+            getchar();
             mainMenu(n, k, gx);
             break;
         }
@@ -581,7 +586,7 @@ void optMenu()
             exit(0);
             break;
         default:
-            system("cls");
+           clear_terminal();
             mainMenu(n, k, gx);
             cout << endl
                  << "francesinha (tost kielbasa kotlet boczek parowki jakies smazone mieso ser tost jajko sadzone - frytki i wszystko ratuje tlusty sos) :) Portugalskie narodowe danie";
