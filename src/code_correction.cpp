@@ -1,7 +1,5 @@
 #include "code_correction.hpp"
 
-// For a given codeword, checks for error and if it can be corrected.
-// Error is corrected if possible.
 void correct(std::deque<std::deque<int>> htMatrix, int n, int k) {
     int t = (calculate_d_min(htMatrix, n, k) - 1) / 2;
     int tilt = 0;
@@ -46,8 +44,6 @@ void correct(std::deque<std::deque<int>> htMatrix, int n, int k) {
     }
 }
 
-// Counts and prints u_i matrix, generating matrix, systematic matrix, corrected
-// matrix and prints code properties
 std::deque<std::deque<int>> controlMatrix(int n, int k, int gx, bool draw) {
     std::deque<std::deque<int>> uMatrix;
     std::deque<std::deque<int>> gMatrix;
@@ -114,7 +110,6 @@ std::deque<std::deque<int>> controlMatrix(int n, int k, int gx, bool draw) {
     return htMatrix;
 }
 
-// Checking code correctness, matrix division
 bool check(int n, std::deque<int> gen) {
 
     std::deque<int> a;

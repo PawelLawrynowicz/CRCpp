@@ -1,6 +1,5 @@
 #include "input_operations.hpp"
 
-// Getting code word from keyboard
 std::deque<int> getWord(int n) {
     std::deque<int> word;
     std::string input;

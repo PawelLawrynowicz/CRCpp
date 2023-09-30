@@ -1,6 +1,5 @@
 #include "matrix_operations.hpp"
 
-// Returns generating matrix
 std::deque<std::deque<int>> generateMatrix(int n, int k, int value, bool draw) {
     std::deque<std::deque<int>> gen;
     std::deque<int> row = precisionDecimalToBinary(value, n);
@@ -20,7 +19,6 @@ std::deque<std::deque<int>> generateMatrix(int n, int k, int value, bool draw) {
     return gen;
 }
 
-// Calculating syndrome
 std::deque<int> syndrom(std::deque<std::deque<int>> htMatrix,
                         std::deque<int> input, int n, int k) {
     std::deque<int> syndrom;
@@ -35,7 +33,6 @@ std::deque<int> syndrom(std::deque<std::deque<int>> htMatrix,
     return syndrom;
 }
 
-// Counting d_minimum
 int calculate_d_min(std::deque<std::deque<int>> matrix, int n, int k) {
     int d_min;
     int counter = 0;
@@ -56,7 +53,6 @@ int calculate_d_min(std::deque<std::deque<int>> matrix, int n, int k) {
     return d_min;
 }
 
-// Multiplying matrix
 std::deque<int> multiplyMatrix(std::deque<int> a, std::deque<std::deque<int>> b,
                                int n, int k) {
     std::deque<int> result;

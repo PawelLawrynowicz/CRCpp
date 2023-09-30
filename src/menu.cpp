@@ -1,9 +1,7 @@
 #include "menu.hpp"
 
-// Clears terminal window
 void clear_terminal() { std::cout << "\033[2J\033[1;1H"; }
 
-// Prints all code words
 void printCodeWords(std::deque<std::deque<int>> gen, int n, int k) {
     std::deque<int> codeWord;
     for (int c = 0; c < pow(2, 8); c++) {
@@ -12,7 +10,6 @@ void printCodeWords(std::deque<std::deque<int>> gen, int n, int k) {
     std::cout << std::endl;
 }
 
-// Printing polynominal
 void printPoly(std::deque<int> poly) {
     int ones = howManyOnes(poly);
     for (int i = 0; i < poly.size(); i++) {
@@ -25,7 +22,6 @@ void printPoly(std::deque<int> poly) {
     }
 }
 
-// Printing currect code in plaintext
 void printPlainText(int n, int k, std::deque<int> poly) {
     std::cout << "Current code:(" << n << ", " << k << ") ";
     int ones = howManyOnes(poly);
@@ -39,7 +35,6 @@ void printPlainText(int n, int k, std::deque<int> poly) {
     }
 }
 
-// Adding custom code parameters
 void getNewPoly(int &n, int &k, int &value) {
     std::deque<int> temp;
     std::string str;
@@ -64,7 +59,6 @@ void getNewPoly(int &n, int &k, int &value) {
     value = binaryToDecimal(temp);
 }
 
-// Printing menu
 void initMenu(int n, int k, int gx) {
     clear_terminal();
     std::cout << "-- Cyclic coder --" << std::endl << std::endl;
@@ -88,11 +82,10 @@ void initMenu(int n, int k, int gx) {
     std::cout << "0. Exit program" << std::endl;
 }
 
-// Handling menu options
 void optMenu() {
-    int n = 18;    // 18
-    int k = 8;     // 8
-    int gx = 1533; // 1533
+    int n = 18;
+    int k = 8;
+    int gx = 1533;
     while (1) {
         switch (getchar()) {
         case '1':

@@ -1,6 +1,5 @@
 #include "binary_operations.hpp"
 
-// Decimal to binary conversion
 std::deque<int> decimalToBinary(int decimal) {
     std::deque<int> binary;
 
@@ -11,7 +10,6 @@ std::deque<int> decimalToBinary(int decimal) {
     return binary;
 }
 
-// Binary to decimal conversion
 int binaryToDecimal(std::deque<int> binary) {
     int decimal = 0;
     int j = binary.size();
@@ -24,7 +22,6 @@ int binaryToDecimal(std::deque<int> binary) {
     return decimal;
 }
 
-// Puts the necessary zeroes on the beginning of the number
 std::deque<int> addZero(std::deque<int> &a, int c) {
     for (int i = 0; i < c; i++) {
         a.push_front(0);
@@ -32,7 +29,6 @@ std::deque<int> addZero(std::deque<int> &a, int c) {
     return a;
 }
 
-// Merged functionality of addZero and binaryToDecimal
 std::deque<int> precisionDecimalToBinary(int dec, int k) {
     std::deque<int> bin;
     std::deque<int> temp;
@@ -51,7 +47,6 @@ std::deque<int> precisionDecimalToBinary(int dec, int k) {
     return temp;
 }
 
-// Shifts the bits to the left, most significant bit becomes least significant
 std::deque<int> move_1_to_left(std::deque<int> a) {
     int temp = a.front();
     a.pop_front();
@@ -59,15 +54,12 @@ std::deque<int> move_1_to_left(std::deque<int> a) {
     return a;
 }
 
-// Shifts the bits to the right, least significant bit becomes most significant
 std::deque<int> move_1_to_right(std::deque<int> a) {
     int temp = a.back();
     a.pop_back();
     a.push_front(temp);
     return a;
 }
-
-// Counts ones in a binary number
 int howManyOnes(std::deque<int> syndrome) {
     int one = 0;
     for (int i = 0; i < syndrome.size(); i++) {
@@ -77,7 +69,6 @@ int howManyOnes(std::deque<int> syndrome) {
     return one;
 }
 
-// Counts division remainder and result in CG(2)
 std::deque<int> divisionRemainer(std::deque<int> a, std::deque<int> b) {
     std::deque<int> result;
     while (b.size() <= a.size() && a.size() != 0) {
@@ -97,7 +88,6 @@ std::deque<int> divisionRemainer(std::deque<int> a, std::deque<int> b) {
     return a;
 }
 
-// Checking if given string is a binary number
 bool binaryCheck(std::string str) {
     for (int i = 0; i < str.length(); i++) {
         if (str[i] != '1' && str[i] != '0') {
