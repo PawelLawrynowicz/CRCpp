@@ -1,13 +1,12 @@
- cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.22)
+project(gtest_template)
 
- # Set the project name and version
- project(CyclicCoder VERSION 1.0)
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
- # Add an executable target
- add_executable(CyclicCoder src/main.cpp)
+find_package(GTest REQUIRED)
 
- # Optionally, set C++ standard (e.g., C++11)
- set_target_properties(CyclicCoder PROPERTIES
-         CXX_STANDARD 17
-         CXX_STANDARD_REQUIRED ON
- )
+add_executable(main src/main.cpp)
+
+add_executable(gtest tests/tests_main.cpp)
+target_link_libraries(gtest ${GTEST_LIBRARIES})
