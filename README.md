@@ -1,14 +1,14 @@
-# GoogleTest Project Template
-A template for GoogleTest based projects with CMake.
-Requires ```libgtest-dev``` or any compatible compiled version of <a href="https://github.com/google/googletest">GoogleTest</a> library.
-<br />
+# Cyclic coder
+
+Implementation of a cyclic coder and decoder.
+
 To run:
 ```
 mkdir build && cd build
 cmake ..
 make
 
-// Run main program
+// Run cyclic coder
 ./main 
 
 // Run gtest
